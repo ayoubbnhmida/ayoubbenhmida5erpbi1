@@ -31,7 +31,7 @@ pipeline {
                 withSonarQubeEnv('SonarQube') {
                     dir('DevOps-AppGestionDesProjets-main/backend') {
                         sh '''
-                            mvn sonar:sonar \
+                            mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
                             -Dsonar.projectKey=DevOps-AppGestionDesProjets \
                             -Dsonar.projectName="DevOps App Gestion des Projets"
                         '''
@@ -51,7 +51,8 @@ pipeline {
 
         stage('Archive') {
             steps {
-                archiveArtifacts artifacts: 'DevOps-AppGestionDesProjets-main/backend/target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'DevOps-AppGestionDesProjets-main/backend/target/*.jar',
+                                 fingerprint: true
             }
         }
     }
