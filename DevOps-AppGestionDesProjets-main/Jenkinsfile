@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -21,6 +22,20 @@ pipeline {
             steps {
                 dir('DevOps-AppGestionDesProjets-main/backend') {
                     sh 'mvn test'
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    dir('DevOps-AppGestionDesProjets-main/backend') {
+                        sh '''
+                            mvn sonar:sonar \
+                            -Dsonar.projectKey=DevOps-AppGestionDesProjets \
+                            -Dsonar.projectName="DevOps App Gestion des Projets"
+                        '''
+                    }
                 }
             }
         }
