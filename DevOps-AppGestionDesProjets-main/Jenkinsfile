@@ -11,7 +11,7 @@ pipeline {
 
         stage('Build Backend') {
             steps {
-                dir('backend') {
+                dir('DevOps-AppGestionDesProjets-main/backend') {
                     sh 'mvn clean package -DskipTests'
                 }
             }
@@ -19,7 +19,7 @@ pipeline {
 
         stage('Test Backend') {
             steps {
-                dir('backend') {
+                dir('DevOps-AppGestionDesProjets-main/backend') {
                     sh 'mvn test'
                 }
             }
@@ -27,7 +27,7 @@ pipeline {
 
         stage('Build Frontend') {
             steps {
-                dir('frontend') {
+                dir('DevOps-AppGestionDesProjets-main/frontend') {
                     sh 'npm install'
                     sh 'npm run build'
                 }
@@ -36,7 +36,7 @@ pipeline {
 
         stage('Archive') {
             steps {
-                archiveArtifacts artifacts: 'backend/target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'DevOps-AppGestionDesProjets-main/backend/target/*.jar', fingerprint: true
             }
         }
     }
